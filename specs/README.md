@@ -19,3 +19,13 @@ When a new recipe comes with a new ingredient, people with filter will not see i
 
 With separated graph for recipes / products and stores, how to efficiency filter recipes to selected stores?
 
+Whitelist:
+
+Build a list of product from a selection of stores.
+Filter recipes for which all requirements are on the list.
+
+Blacklist:
+
+Build a list of products from a selection of stores (has_not).
+Filter recipes for which one of the requirement is on the list.
+
