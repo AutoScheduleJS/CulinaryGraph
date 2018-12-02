@@ -17,8 +17,6 @@ When there is enough product information, user can start to filter recipes avail
 
 When a new recipe comes with a new ingredient, people with filter will not see it until someone add this ingredient in one of the selected store. If we link product to store with "has" or "has_not", we can filter recipes available from store with products that have "has" or no relation (unknow).
 
-With separated graph for recipes / products and stores, how to efficiency filter recipes to selected stores?
-
 Whitelist:
 
 Build a list of product from a selection of stores.
@@ -29,3 +27,17 @@ Blacklist:
 Build a list of products from a selection of stores (has_not).
 Filter recipes for which one of the requirement is on the list.
 
+## Thoughts
+
+home made recipe and similar products in store share similar properties:
+- quality: both can vary in quality
+  - are they ? It make no sense to call a recipe "discount", "basic". It's better to call a recipe "simple" or "elaborated". Quality depends on ingredient's quality used and directions.
+- directions: merchandise are not necessarly ready to use and need some preparation
+  - directions from finished products is equivalent to any other recipe, and have requirements. All finished products with similar directions can be grouped in the same product node.
+- merchandise are attached to stores
+- recipe can't link merchandise, they must refer a family product node
+
+How to compute nutrition fact on a recipe?
+
+We could save nutrition fact on each product, keeping the min & max from "instance" of this product.
+When choosing recipe to present to user, it will only take the "min" value for properties we want to maximize (eg: vitamins), and "max" for those we want to minimize (eg: calories). Then we ensure that theses values are in the range of accepted ones (eg: between min/max cal for a day)
