@@ -21,6 +21,7 @@ Whitelist:
 
 Build a list of product from a selection of stores.
 Filter recipes for which all requirements are on the list.
+All the unknow product are lost.
 
 Blacklist:
 

@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { router as apiRouter } from './api/router';
-import { graphqlHandler } from './graphql/index';
+import { apolloServer } from './graphql/index';
 
 const app = express();
 
@@ -11,8 +11,6 @@ export const appFactory = _ => {
 
   app.use('/api', apiRouter({}));
 
-  app.use('/graphql', graphqlHandler({}))
-
   app.use((err, _, res, next) => {
     if (res.headersSent) {
       return next(err);
@@ -20,6 +18,8 @@ export const appFactory = _ => {
     console.error(err);
     res.sendStatus(500);
   });
+
+  apolloServer.applyMiddleware({ app });
 
   return app;
 };

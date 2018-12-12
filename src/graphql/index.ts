@@ -1,18 +1,12 @@
-import * as graphqlHTTP from 'express-graphql';
-import { buildSchema } from 'graphql';
+import { ApolloServer } from 'apollo-server-express';
+import { makeAugmentedSchema } from 'neo4j-graphql-js';
+import { v1 as Neo } from 'neo4j-driver';
+import { typeDefs } from './schema';
 
-const schema = buildSchema(`
-  type Query {
-    hello: string
-  }
-`);
+const schema = makeAugmentedSchema({ typeDefs });
+const driver = Neo.driver(
+  'bolt://localhost',
+  Neo.auth.basic('neo4j', 'admin')
+);
 
-const rootValue = { hello: () => 'Hello world!' };
-
-export const graphqlHandler = (_) => {
-  return graphqlHTTP({
-    schema,
-    rootValue,
-    graphiql: true,
-  });
-};
+export const apolloServer = new ApolloServer({ schema, context: { driver }});
